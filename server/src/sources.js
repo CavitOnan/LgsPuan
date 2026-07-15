@@ -50,6 +50,20 @@ export const KAYNAKLAR = [
     varsayilanKategori: "Yabancı Özel Lise"
   },
   {
+    id: "robert-kolej-kayit",
+    ad: "Robert Kolej - Kayıt Dönemi",
+    tur: "sabit",
+    url: "https://website.robcol.k12.tr/tr/kayit-kabul-bilgileri/kayit-basvuru-islemleri/kayit-donemi",
+    varsayilanKategori: "Amerikan"
+  },
+  {
+    id: "uskudar-amerikan-kayit",
+    ad: "Üsküdar Amerikan Lisesi - Kayıt Takvimi ve Kılavuzu",
+    tur: "sabit",
+    url: "https://www.uaa.k12.tr/haber/532/2026-2027-uskudar-amerikan-lisesi-kay%C4%B1t-takvimi-ve-k%C4%B1lavuzu/",
+    varsayilanKategori: "Amerikan"
+  },
+  {
     id: "kucuk-prens-kayit",
     ad: "Özel Küçük Prens Lisesi - Kayıt İşlemleri",
     tur: "sabit",
