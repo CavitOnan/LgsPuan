@@ -45,6 +45,13 @@ export const KAYNAKLAR = [
     varsayilanKategori: "Yabancı Özel Lise"
   },
   {
+    id: "kucuk-prens-kayit",
+    ad: "Özel Küçük Prens Lisesi - Kayıt İşlemleri",
+    tur: "sabit",
+    url: "https://kp.k12.tr/lise/aday-ogrenci/kayit-islemleri/",
+    varsayilanKategori: "Fransız"
+  },
+  {
     id: "gemini-ai-arama",
     ad: "Google AI (Gemini) ile arama",
     tur: "yapay-zeka",
