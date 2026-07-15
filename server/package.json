@@ -1,0 +1,18 @@
+{
+  "name": "lgs-okul-puan-takip-server",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "LGS ile öğrenci alan özel okulların taban puan/kontenjan verilerini toplayan API",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "node --watch src/index.js"
+  },
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cheerio": "^1.0.0",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}

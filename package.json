@@ -1,0 +1,14 @@
+{
+  "name": "lgs-okul-puan-takip",
+  "private": true,
+  "version": "0.1.0",
+  "description": "LGS puanıyla öğrenci alan özel okulların taban puan/kontenjan/boş kontenjan durumunu izleyen web sitesi",
+  "scripts": {
+    "dev": "concurrently -k -n server,client -c blue,green \"npm:dev --prefix server\" \"npm:dev --prefix client\"",
+    "build": "npm run build --prefix client",
+    "start": "npm run start --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

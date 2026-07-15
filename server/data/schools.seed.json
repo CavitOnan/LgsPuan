@@ -1,0 +1,110 @@
+{
+  "guncellemeZamani": "2026-07-15T00:00:00.000Z",
+  "kaynakNotu": "İlk kayıt döneminde (ön kayıt/kesin kayıt) açıklanan taban puan ve kontenjanlardır. 'Yenile' ile en güncel serbest kayıt turu verileri çekilmeye çalışılır.",
+  "okullar": [
+    {
+      "id": "robert-kolej-kiz",
+      "okulAdi": "Robert Kolej",
+      "kategori": "Amerikan",
+      "grup": "Kız",
+      "sehir": "İstanbul",
+      "tabanPuan": 482,
+      "toplamKontenjan": 101,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": null
+    },
+    {
+      "id": "robert-kolej-erkek",
+      "okulAdi": "Robert Kolej",
+      "kategori": "Amerikan",
+      "grup": "Erkek",
+      "sehir": "İstanbul",
+      "tabanPuan": 482,
+      "toplamKontenjan": 101,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": null
+    },
+    {
+      "id": "uskudar-amerikan-kiz",
+      "okulAdi": "Üsküdar Amerikan Lisesi",
+      "kategori": "Amerikan",
+      "grup": "Kız",
+      "sehir": "İstanbul",
+      "tabanPuan": 475,
+      "toplamKontenjan": 90,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": null
+    },
+    {
+      "id": "uskudar-amerikan-erkek",
+      "okulAdi": "Üsküdar Amerikan Lisesi",
+      "kategori": "Amerikan",
+      "grup": "Erkek",
+      "sehir": "İstanbul",
+      "tabanPuan": 475,
+      "toplamKontenjan": 90,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": null
+    },
+    {
+      "id": "alman-lisesi",
+      "okulAdi": "Alman Lisesi (İstanbul Erkek Lisesi)",
+      "kategori": "Alman",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": 475,
+      "toplamKontenjan": 150,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": null
+    },
+    {
+      "id": "sankt-georg-avusturya",
+      "okulAdi": "Sankt Georg Avusturya Lisesi",
+      "kategori": "Avusturya",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": 465,
+      "toplamKontenjan": 84,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt (asil-yedek, kontenjan dolana kadar sürer)",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": "Avusturya Lisesi diğer okullardan farklı bir kayıt takvimi izler: tek liste üzerinden asil-yedek olarak kontenjan dolana kadar kayıt alır."
+    },
+    {
+      "id": "italyan-lisesi",
+      "okulAdi": "İtalyan Lisesi (Liceo Italiano)",
+      "kategori": "İtalyan",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": 465,
+      "toplamKontenjan": 80,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": "Kontenjan 64 genel + 16 ek kontenjan olarak açıklanmıştır."
+    },
+    {
+      "id": "saint-joseph-fransiz",
+      "okulAdi": "Saint Joseph Fransız Lisesi (Sajev)",
+      "kategori": "Fransız",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": 455,
+      "toplamKontenjan": 208,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": null
+    }
+  ]
+}
