@@ -14,6 +14,11 @@
 //                       temellendirme özelliğiyle) doğrudan soru sorulur.
 //                       GEMINI_API_KEY tanımlı değilse bu kaynak "atlandı"
 //                       olarak işaretlenir, hata sayılmaz.
+// tur: "kayit-sayimi" -> Bir "kesin kayıt listesi" sayfasındaki satır/madde
+//                       sayısı sayılır (hedefOkulId zorunlu); bu sayı, o
+//                       okulun bilinen toplam kontenjanından düşülerek boş
+//                       kontenjan hesaplanır. Toplam kontenjan bilinmiyorsa
+//                       hesaplama yapılamaz.
 export const KAYNAKLAR = [
   {
     id: "pervinkaplan-yabanci",
@@ -50,6 +55,13 @@ export const KAYNAKLAR = [
     tur: "sabit",
     url: "https://kp.k12.tr/lise/aday-ogrenci/kayit-islemleri/",
     varsayilanKategori: "Fransız"
+  },
+  {
+    id: "kucuk-prens-kesin-kayit-sayimi",
+    ad: "Özel Küçük Prens Lisesi - Kesin Kayıt Listesi (sayım)",
+    tur: "kayit-sayimi",
+    url: "https://kp.k12.tr/lise/aday-ogrenci/kayit-islemleri/kesin-kayit-listesi/",
+    hedefOkulId: "kucuk-prens"
   },
   {
     id: "gemini-ai-arama",

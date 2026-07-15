@@ -60,6 +60,21 @@ Yeni bir okul takip etmek isterseniz `server/src/okulAdlari.js`'e `id/ad/kategor
 bilgisiyle eklemeniz yeterli; hem ilk duyuru hem de "boş kontenjan" ayrıştırması otomatik
 çalışır.
 
+### Kesin kayıt listesinden sayarak boş kontenjan hesaplama
+
+Bazı okullar (örn. Özel Küçük Prens Lisesi, `kucuk-prens-kesin-kayit-sayimi` kaynağı) kesin
+kayıt yaptıran öğrencilerin bir listesini kendi sitelerinde yayınlıyor, ama "boş kontenjan"
+sayısını doğrudan yazmıyor. Bu durumda `tur: "kayit-sayimi"` kaynak tipi kullanılır:
+`server/src/scraper.js`'teki `kayitSayisiniBul` fonksiyonu sayfadaki tabloyu/listeyi sayar
+(önce `<table>` satırları, sonra `<ol>/<ul>` maddeleri, sonra numaralı satır kalıpları
+denenir), bulunan sayı okulun **bilinen toplam kontenjanından düşülerek** boş kontenjan
+hesaplanır (`bosKontenjan = toplamKontenjan - sayım`). Okulun toplam kontenjanı bilinmiyorsa
+hesaplama yapılamaz ve önceki veri korunur.
+
+Yeni bir kaynağı bu şekilde tanımlamak için `sources.js`'e
+`{ id, ad, tur: "kayit-sayimi", url, hedefOkulId }` eklemeniz yeterli; `hedefOkulId`,
+`okulAdlari.js`'teki ilgili okulun `id`'siyle eşleşmelidir.
+
 ### Google AI (Gemini) ile arama
 
 Haber sitelerinden scraping her zaman güvenilir olmayabilir (site yapısı değişebilir, bot
@@ -104,6 +119,10 @@ Projeyi normal internet erişimi olan bir makinede/sunucuda çalıştırdığın
    ifadesine göre güncelleyin.
 3. "Boş kontenjan" bir okul için sürekli "Bilinmiyor" kalıyorsa, o okulun `okulAdlari.js`'teki
    `aliaslar` listesini, makalede geçen gerçek isim yazımıyla eşleşecek şekilde genişletin.
+   "kayit-sayimi" tipi bir kaynak sürekli hata veriyorsa, o kesin kayıt listesi sayfasının gerçek
+   HTML yapısının (`<table>`, `<ol>/<ul>` ya da numaralı düz metin) `kayitSayisiniBul`
+   fonksiyonundaki üç kalıptan biriyle uyuşmadığı anlamına gelir; gerekirse o siteye özel bir
+   dördüncü kalıp ekleyin.
 4. Kalıcı olarak engelleyen (403/bot koruması) bir site için, o kaynağı `sources.js`'ten
    çıkarıp yerine erişilebilir başka bir kaynak eklemeniz gerekebilir, ya da yukarıdaki Gemini
    API entegrasyonunu bir GEMINI_API_KEY tanımlayarak devreye alabilirsiniz.

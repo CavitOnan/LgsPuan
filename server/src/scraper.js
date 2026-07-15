@@ -256,7 +256,63 @@ function kaynakGosterimUrl(kaynak) {
   return kaynak.url;
 }
 
+// Bir "kesin kayıt listesi" sayfasındaki kayıtlı öğrenci sayısını tahmin eder.
+// Sayfanın gerçek yapısı bilinmediğinden (bu sandbox'ta erişilemedi) birkaç
+// yaygın kalıp sırayla denenir; ilk güvenilir bulunan (>= 3 satır/madde) sonuç
+// kullanılır. Hiçbiri güvenilir bulunamazsa null döner (uydurma sayı verilmez).
+function kayitSayisiniBul($) {
+  let enIyiTablo = 0;
+  $("table").each((_, el) => {
+    const govdeSatiri = $(el).find("tbody tr").length;
+    const satirSayisi = govdeSatiri > 0 ? govdeSatiri : Math.max($(el).find("tr").length - 1, 0);
+    if (satirSayisi > enIyiTablo) enIyiTablo = satirSayisi;
+  });
+  if (enIyiTablo >= 3) return enIyiTablo;
+
+  let enIyiListe = 0;
+  $("ol, ul").each((_, el) => {
+    const maddeSayisi = $(el).children("li").length;
+    if (maddeSayisi > enIyiListe) enIyiListe = maddeSayisi;
+  });
+  if (enIyiListe >= 3) return enIyiListe;
+
+  const adaylar = ["article", ".content", "main", "body"];
+  let govdeMetin = "";
+  for (const secici of adaylar) {
+    const el = $(secici).first();
+    if (el.length) {
+      govdeMetin = el.text();
+      break;
+    }
+  }
+  const satirlar = govdeMetin
+    .split(/\n+/)
+    .map((s) => s.trim())
+    .filter(Boolean);
+  const numarali = satirlar.filter((s) => /^\d{1,4}[.)]\s*\S/.test(s));
+  if (numarali.length >= 3) return numarali.length;
+
+  return null;
+}
+
 export async function kaynaktanOkullariCek(kaynak) {
+  if (kaynak.tur === "kayit-sayimi") {
+    const $ = await sayfaGetir(kaynak.url);
+    const sayim = kayitSayisiniBul($);
+    if (sayim === null) {
+      throw new Error("Kayıt listesinde sayılabilir bir tablo/liste yapısı bulunamadı (site yapısı değişmiş olabilir).");
+    }
+    return [
+      {
+        tur: "kayit-sayisi",
+        id: kaynak.hedefOkulId,
+        sayim,
+        kaynakId: kaynak.id,
+        kaynakUrl: kaynak.url
+      }
+    ];
+  }
+
   if (kaynak.tur === "yapay-zeka") {
     const bulunanlar = await geminiIleOkullariSorgula();
     return bulunanlar.map((e) => ({
@@ -349,6 +405,21 @@ export async function tumKaynaklariYenile(mevcutOkullar) {
       for (const b of bulunanlar) {
         const id = b.id || `${slugYap(b.okulAdi)}${b.grup !== "Karma" ? "-" + slugYap(b.grup) : ""}`;
         const oncekiKayit = okullarById.get(id);
+
+        // "kayit-sayisi": kesin kayıt listesindeki satır/madde sayısı sayıldı;
+        // okulun bilinen toplam kontenjanından düşülerek boş kontenjan bulunur.
+        // Toplam kontenjan bilinmiyorsa hesaplanamaz, mevcut veri korunur.
+        if (b.tur === "kayit-sayisi") {
+          if (!oncekiKayit || oncekiKayit.toplamKontenjan == null) continue;
+          const bosKontenjan = Math.max(oncekiKayit.toplamKontenjan - b.sayim, 0);
+          okullarById.set(id, {
+            ...oncekiKayit,
+            bosKontenjan,
+            kaynakUrl: b.kaynakUrl,
+            __sonGuncellemeTuru: "bos-kontenjan"
+          });
+          continue;
+        }
 
         // "bos-kontenjan" türü eşleşmeler ("N boş kontenjan", "kontenjanı doldu")
         // daha spesifik bir sinyaldir ve "genel" türden (ilk duyuru) daha
