@@ -2,6 +2,7 @@ import axios from "axios";
 import * as cheerio from "cheerio";
 import { KAYNAKLAR, okulAdindanKategoriTahminEt } from "./sources.js";
 import { OKUL_ALIASLARI } from "./okulAdlari.js";
+import { geminiIleOkullariSorgula, geminiYapilandirilmisMi } from "./gemini.js";
 
 const HTTP_TIMEOUT_MS = 15000;
 const USER_AGENT =
@@ -249,7 +250,28 @@ async function enGuncelMakaleyiBul(kaynak) {
   return new URL(link, kaynak.indexUrl).toString();
 }
 
+function kaynakGosterimUrl(kaynak) {
+  if (kaynak.tur === "liste") return kaynak.indexUrl;
+  if (kaynak.tur === "yapay-zeka") return "https://aistudio.google.com/ (Gemini API + Google Arama)";
+  return kaynak.url;
+}
+
 export async function kaynaktanOkullariCek(kaynak) {
+  if (kaynak.tur === "yapay-zeka") {
+    const bulunanlar = await geminiIleOkullariSorgula();
+    return bulunanlar.map((e) => ({
+      tur: "bos-kontenjan",
+      id: e.id,
+      okulAdi: e.ad,
+      grup: e.grup,
+      kategori: e.kategori,
+      tabanPuan: e.tabanPuan,
+      bosKontenjan: e.bosKontenjan,
+      kaynakId: kaynak.id,
+      kaynakUrl: kaynakGosterimUrl(kaynak)
+    }));
+  }
+
   const makaleUrl = kaynak.tur === "liste" ? await enGuncelMakaleyiBul(kaynak) : kaynak.url;
   const $ = await sayfaGetir(makaleUrl);
   const metin = metniTemizle($);
@@ -297,6 +319,18 @@ export async function tumKaynaklariYenile(mevcutOkullar) {
   const simdi = new Date().toISOString();
 
   for (const kaynak of KAYNAKLAR) {
+    if (kaynak.tur === "yapay-zeka" && !geminiYapilandirilmisMi()) {
+      kaynakDurumlari.push({
+        id: kaynak.id,
+        ad: kaynak.ad,
+        url: kaynakGosterimUrl(kaynak),
+        durum: "atlandı",
+        hata: "GEMINI_API_KEY tanımlı değil (server/.env dosyasına ekleyin).",
+        sonDenemeZamani: simdi
+      });
+      continue;
+    }
+
     try {
       const bulunanlar = await kaynaktanOkullariCek(kaynak);
 
@@ -304,7 +338,7 @@ export async function tumKaynaklariYenile(mevcutOkullar) {
         kaynakDurumlari.push({
           id: kaynak.id,
           ad: kaynak.ad,
-          url: kaynak.tur === "liste" ? kaynak.indexUrl : kaynak.url,
+          url: kaynakGosterimUrl(kaynak),
           durum: "hata",
           hata: "Sayfada tanınan bir okul/puan deseni bulunamadı (site yapısı değişmiş olabilir).",
           sonDenemeZamani: simdi
@@ -341,7 +375,7 @@ export async function tumKaynaklariYenile(mevcutOkullar) {
       kaynakDurumlari.push({
         id: kaynak.id,
         ad: kaynak.ad,
-        url: kaynak.tur === "liste" ? kaynak.indexUrl : kaynak.url,
+        url: kaynakGosterimUrl(kaynak),
         durum: "basarili",
         bulunanOkulSayisi: bulunanlar.length,
         sonDenemeZamani: simdi,
@@ -351,7 +385,7 @@ export async function tumKaynaklariYenile(mevcutOkullar) {
       kaynakDurumlari.push({
         id: kaynak.id,
         ad: kaynak.ad,
-        url: kaynak.tur === "liste" ? kaynak.indexUrl : kaynak.url,
+        url: kaynakGosterimUrl(kaynak),
         durum: "hata",
         hata: err.message || "Bilinmeyen hata",
         sonDenemeZamani: simdi

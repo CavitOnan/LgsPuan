@@ -95,7 +95,7 @@
     },
     {
       "id": "saint-joseph-fransiz",
-      "okulAdi": "Saint Joseph Fransız Lisesi (Sajev)",
+      "okulAdi": "Saint Joseph Fransız Lisesi",
       "kategori": "Fransız",
       "grup": "Karma",
       "sehir": "İstanbul",
@@ -105,6 +105,19 @@
       "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
       "kaynakUrl": "https://www.pervinkaplan.com",
       "not": null
+    },
+    {
+      "id": "kucuk-prens",
+      "okulAdi": "Özel Küçük Prens Lisesi (Sajev)",
+      "kategori": "Fransız",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": 390,
+      "toplamKontenjan": 100,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
+      "kaynakUrl": "https://kp.k12.tr/lise/",
+      "not": "Saint-Joseph Lisesi Eğitim Vakfı (SAJEV) tarafından işletilen ayrı bir okuldur; Saint Joseph Fransız Lisesi ile karıştırılmamalıdır."
     },
     {
       "id": "saint-benoit-fransiz",

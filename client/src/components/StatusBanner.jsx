@@ -3,6 +3,7 @@ export default function StatusBanner({ kaynakDurumlari, guncellemeZamani }) {
 
   const basarili = kaynakDurumlari.filter((k) => k.durum === 'basarili')
   const hatali = kaynakDurumlari.filter((k) => k.durum === 'hata')
+  const atlanan = kaynakDurumlari.filter((k) => k.durum === 'atlandı')
 
   return (
     <div className={`durum-banner${hatali.length > 0 ? ' uyari' : ' basarili'}`}>
@@ -12,6 +13,11 @@ export default function StatusBanner({ kaynakDurumlari, guncellemeZamani }) {
           <>
             , <strong>{hatali.length}</strong> kaynağa ulaşılamadı (bu kaynaklara ait okullarda son bilinen veri
             gösteriliyor)
+          </>
+        )}
+        {atlanan.length > 0 && (
+          <>
+            , <strong>{atlanan.length}</strong> kaynak yapılandırılmadığı için atlandı
           </>
         )}
         {guncellemeZamani && (
@@ -29,6 +35,15 @@ export default function StatusBanner({ kaynakDurumlari, guncellemeZamani }) {
                 {h.ad}
               </a>
               : {h.hata}
+            </li>
+          ))}
+        </ul>
+      )}
+      {atlanan.length > 0 && (
+        <ul className="durum-atlanan-listesi">
+          {atlanan.map((a) => (
+            <li key={a.id}>
+              {a.ad}: {a.hata}
             </li>
           ))}
         </ul>

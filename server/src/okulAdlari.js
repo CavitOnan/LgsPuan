@@ -56,10 +56,20 @@ export const OKUL_ALIASLARI = [
   },
   {
     id: "saint-joseph-fransiz",
-    ad: "Saint Joseph Fransız Lisesi (Sajev)",
+    ad: "Saint Joseph Fransız Lisesi",
     kategori: "Fransız",
     grup: "Karma",
-    aliaslar: ["Saint Joseph", "Sen Jozef", "Sajev"]
+    // "Sajev" tek başına belirsiz: hem bu okulun mezunlar vakfının adı hem de
+    // vakfın işlettiği ayrı bir okul olan "Küçük Prens"in duyurularında geçiyor.
+    // Bu yüzden burada sadece Saint Joseph'e özgü, daha isabetli kalıplar var.
+    aliaslar: ["Saint Joseph", "Sen Jozef", "Sajev Saint Joseph", "Sajev Lisesi"]
+  },
+  {
+    id: "kucuk-prens",
+    ad: "Özel Küçük Prens Lisesi (Sajev)",
+    kategori: "Fransız",
+    grup: "Karma",
+    aliaslar: ["Küçük Prens", "Sajev Küçük Prens"]
   },
   {
     id: "saint-benoit-fransiz",

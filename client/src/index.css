@@ -151,6 +151,12 @@ h1 {
   font-weight: 600;
 }
 
+.durum-atlanan-listesi {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  opacity: 0.85;
+}
+
 .yukleniyor-mesaj,
 .bos-mesaj {
   margin-top: 24px;

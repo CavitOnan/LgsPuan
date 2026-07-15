@@ -7,3 +7,7 @@ release/
 
 # çalışma zamanında oluşan veri önbelleği
 server/data/schools.json
+
+# API anahtarları
+.env
+server/.env

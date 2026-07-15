@@ -6,6 +6,14 @@ import { fileURLToPath } from "node:url";
 import { veriyiOku, veriyiYaz } from "./store.js";
 import { tumKaynaklariYenile } from "./scraper.js";
 
+// server/.env varsa GEMINI_API_KEY gibi değişkenleri yükler (Node'un yerleşik
+// desteğiyle). Dosya yoksa (henüz oluşturulmadıysa) sessizce yok sayılır.
+try {
+  process.loadEnvFile();
+} catch {
+  // .env yok, sorun değil: Gemini kaynağı bu durumda "atlandı" olarak işaretlenir.
+}
+
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = process.env.PORT || 5175;
 

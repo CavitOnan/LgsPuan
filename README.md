@@ -60,6 +60,26 @@ Yeni bir okul takip etmek isterseniz `server/src/okulAdlari.js`'e `id/ad/kategor
 bilgisiyle eklemeniz yeterli; hem ilk duyuru hem de "boş kontenjan" ayrıştırması otomatik
 çalışır.
 
+### Google AI (Gemini) ile arama
+
+Haber sitelerinden scraping her zaman güvenilir olmayabilir (site yapısı değişebilir, bot
+koruması engelleyebilir). Bunun için isteğe bağlı bir yedek/ek kaynak var: **Gemini API**'yi
+"Google ile arama" temellendirmesiyle çağırıp, bilinen tüm okullar için güncel taban puan/boş
+kontenjan bilgisini tek bir sorguda istiyor (`server/src/gemini.js`).
+
+Kullanmak için:
+
+1. https://aistudio.google.com/apikey adresinden ücretsiz bir Gemini API anahtarı alın.
+2. `server/.env.example` dosyasını `server/.env` olarak kopyalayın ve `GEMINI_API_KEY` satırına
+   anahtarınızı yapıştırın (bu dosya git'e dahil edilmez).
+3. `npm run dev`'i yeniden başlatın.
+
+Anahtar tanımlı değilse bu kaynak hata sayılmaz; arayüzde "yapılandırılmadığı için atlandı"
+olarak nötr bir şekilde gösterilir, diğer kaynaklar normal çalışmaya devam eder. Model yanıtı
+her okul için ayrı ayrı bilinen isim listesiyle (`okulAdlari.js`) eşleştirilir; eşleşmeyen veya
+sayısal olarak makul olmayan (taban puan 250-520 dışı, kontenjan negatif/aşırı büyük) kayıtlar
+sessizce elenir.
+
 ## Kaynakların güncellenmesi
 
 `server/src/sources.js` içindeki `KAYNAKLAR` listesi, veri çekilecek sayfaların adreslerini
@@ -85,7 +105,16 @@ Projeyi normal internet erişimi olan bir makinede/sunucuda çalıştırdığın
 3. "Boş kontenjan" bir okul için sürekli "Bilinmiyor" kalıyorsa, o okulun `okulAdlari.js`'teki
    `aliaslar` listesini, makalede geçen gerçek isim yazımıyla eşleşecek şekilde genişletin.
 4. Kalıcı olarak engelleyen (403/bot koruması) bir site için, o kaynağı `sources.js`'ten
-   çıkarıp yerine erişilebilir başka bir kaynak eklemeniz gerekebilir.
+   çıkarıp yerine erişilebilir başka bir kaynak eklemeniz gerekebilir, ya da yukarıdaki Gemini
+   API entegrasyonunu bir GEMINI_API_KEY tanımlayarak devreye alabilirsiniz.
+
+Gemini entegrasyonunun kendisi de aynı nedenle (API anahtarı gerektirdiği ve bu sandbox'ta dış
+API çağrıları engellendiği için) gerçek bir anahtarla uçtan uca test edilemedi; istek/yanıt
+gövdesi Gemini API'nin `generateContent` uç noktasının dokümante edilmiş biçimine göre yazıldı,
+JSON ayrıştırma ve okul eşleştirme mantığı ise sentetik bir model yanıtıyla doğrulandı
+(`sonuclariAyristirVeEsle` fonksiyonu). "Google ile arama" aracının alan adı (`google_search`)
+Gemini API sürümüne göre değişebilir; sorun yaşarsanız
+https://ai.google.dev/gemini-api/docs/grounding adresinden güncel adı doğrulayın.
 
 ## Üretim (production) build
 
