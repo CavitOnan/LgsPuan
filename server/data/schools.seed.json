@@ -105,6 +105,58 @@
       "kayitAsamasi": "Ön Kayıt / Kesin Kayıt",
       "kaynakUrl": "https://www.pervinkaplan.com",
       "not": null
+    },
+    {
+      "id": "saint-benoit-fransiz",
+      "okulAdi": "Saint Benoit Fransız Lisesi",
+      "kategori": "Fransız",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": null,
+      "toplamKontenjan": null,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Bilinmiyor",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": "İlk duyuru verisi henüz alınamadı; Yenile ile güncellenecek."
+    },
+    {
+      "id": "sainte-pulcherie-fransiz",
+      "okulAdi": "Sainte Pulcherie Fransız Lisesi",
+      "kategori": "Fransız",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": null,
+      "toplamKontenjan": null,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Bilinmiyor",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": "İlk duyuru verisi henüz alınamadı; Yenile ile güncellenecek."
+    },
+    {
+      "id": "notre-dame-sion-fransiz",
+      "okulAdi": "Notre Dame de Sion Fransız Lisesi",
+      "kategori": "Fransız",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": null,
+      "toplamKontenjan": null,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Bilinmiyor",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": "İlk duyuru verisi henüz alınamadı; Yenile ile güncellenecek."
+    },
+    {
+      "id": "saint-michel-fransiz",
+      "okulAdi": "Saint Michel Fransız Lisesi",
+      "kategori": "Fransız",
+      "grup": "Karma",
+      "sehir": "İstanbul",
+      "tabanPuan": null,
+      "toplamKontenjan": null,
+      "bosKontenjan": null,
+      "kayitAsamasi": "Bilinmiyor",
+      "kaynakUrl": "https://www.pervinkaplan.com",
+      "not": "İlk duyuru verisi henüz alınamadı; Yenile ile güncellenecek."
     }
   ]
 }

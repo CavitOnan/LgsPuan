@@ -3,28 +3,40 @@
 // bu bilgiyi düzenli yayınlayan haber/eğitim sitelerinden oluşur. Bir kaynağın
 // HTML yapısı değişirse veya erişilemez hale gelirse parser sonuç bulamaz ve
 // o kaynak "hata" durumuna düşer; diğer kaynaklar etkilenmez.
+//
+// tur: "sabit"  -> tek, değişmeyen bir makale URL'si çekilir.
+// tur: "liste"  -> her kayıt turunda yeni bir makale yayınlayan sitelerde,
+//                  önce indexUrl'deki liste sayfasından en güncel makale linki
+//                  bulunur, sonra o makale çekilir. pervinkaplan.com bu şekilde
+//                  çalışır: "kalan/boş kontenjan" bilgisini her tur için ayrı
+//                  bir yazıda, farklı bir URL'de yayınlıyor.
 export const KAYNAKLAR = [
   {
     id: "pervinkaplan-yabanci",
     ad: "Pervin Kaplan - Yabancı Özel Liseler",
-    url: "https://www.pervinkaplan.com/detay/2026-lgs-iste-yabanci-ozel-liselerin-taban-puanlari-ve-kontenjanlari/33802",
+    tur: "liste",
+    indexUrl: "https://www.pervinkaplan.com/blog/yabanci-ozel-liseler/42",
+    yedekUrl: "https://www.pervinkaplan.com/detay/2026-lgs-iste-yabanci-ozel-liselerin-taban-puanlari-ve-kontenjanlari/33802",
     varsayilanKategori: "Yabancı Özel Lise"
   },
   {
     id: "egitim-net-yabanci",
     ad: "Eğitim.net - Yabancı Özel Liseler",
+    tur: "sabit",
     url: "https://www.egitim.net.tr/egitim/2026-yabanci-ozel-liseler-taban-puanlari-kontenjanlari-16528h",
     varsayilanKategori: "Yabancı Özel Lise"
   },
   {
     id: "egitimsistem-ozel",
     ad: "Eğitim Sistem - Özel Liseler",
+    tur: "sabit",
     url: "https://www.egitimsistem.com/2026-ozel-liseler-taban-puanlari-kontenjanlari-113298h.htm",
     varsayilanKategori: "Türk Özel Lise"
   },
   {
     id: "timeturk-yabanci",
     ad: "Timeturk - Yabancı Özel Lise",
+    tur: "sabit",
     url: "https://www.timeturk.com/lgs-2026-yabanci-ozel-lise-taban-puanlari-robert-482-ile-zirvede",
     varsayilanKategori: "Yabancı Özel Lise"
   }
@@ -32,7 +44,22 @@ export const KAYNAKLAR = [
 
 // Okul adında geçen anahtar kelimeye göre kategori belirleme.
 const KATEGORI_ANAHTAR_KELIMELER = [
-  { kategori: "Fransız", kelimeler: ["fransız", "saint joseph", "sajev", "notre dame", "sen benua", "saint benoit", "pierre loti"] },
+  {
+    kategori: "Fransız",
+    kelimeler: [
+      "fransız",
+      "saint joseph",
+      "sajev",
+      "notre dame",
+      "sen benua",
+      "saint benoit",
+      "pierre loti",
+      "sainte pulcherie",
+      "sen pulceri",
+      "saint michel",
+      "sen mişel"
+    ]
+  },
   { kategori: "Alman", kelimeler: ["alman"] },
   { kategori: "Avusturya", kelimeler: ["avusturya", "sankt georg", "st. georg"] },
   { kategori: "İtalyan", kelimeler: ["italyan", "liceo italiano"] },
