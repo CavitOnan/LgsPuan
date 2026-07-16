@@ -369,12 +369,27 @@ function slugYap(deger) {
 
 // Tüm kaynakları sırayla dener; bir kaynak başarısız olursa o kaynağa ait
 // önceki veriler korunur ve hata durumu raporlanır, diğer kaynaklar etkilenmez.
-export async function tumKaynaklariYenile(mevcutOkullar) {
+// secenekler.geminiEtkin === false ise "yapay-zeka" tipi kaynak, API anahtarı
+// olsa bile kullanıcı tarafından kapatılmış sayılır ve atlanır.
+export async function tumKaynaklariYenile(mevcutOkullar, secenekler = {}) {
+  const geminiEtkin = secenekler.geminiEtkin !== false;
   const okullarById = new Map(mevcutOkullar.map((o) => [o.id, { ...o }]));
   const kaynakDurumlari = [];
   const simdi = new Date().toISOString();
 
   for (const kaynak of KAYNAKLAR) {
+    if (kaynak.tur === "yapay-zeka" && !geminiEtkin) {
+      kaynakDurumlari.push({
+        id: kaynak.id,
+        ad: kaynak.ad,
+        url: kaynakGosterimUrl(kaynak),
+        durum: "atlandı",
+        hata: "Kullanıcı tarafından kapatıldı.",
+        sonDenemeZamani: simdi
+      });
+      continue;
+    }
+
     if (kaynak.tur === "yapay-zeka" && !geminiYapilandirilmisMi()) {
       kaynakDurumlari.push({
         id: kaynak.id,

@@ -95,6 +95,10 @@ her okul için ayrı ayrı bilinen isim listesiyle (`okulAdlari.js`) eşleştiri
 sayısal olarak makul olmayan (taban puan 250-520 dışı, kontenjan negatif/aşırı büyük) kayıtlar
 sessizce elenir.
 
+Arayüzde, Yenile butonunun yanında **"Google AI (Gemini) ile ara"** anahtarı bulunur (tarayıcıda
+`localStorage`'a kaydedilir, varsayılan olarak **kapalı**). Kapalıyken bu kaynak API anahtarı
+tanımlı olsa bile çağrılmaz ve durum bandında "Kullanıcı tarafından kapatıldı" olarak görünür.
+
 ## Kaynakların güncellenmesi
 
 `server/src/sources.js` içindeki `KAYNAKLAR` listesi, veri çekilecek sayfaların adreslerini

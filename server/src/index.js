@@ -28,7 +28,8 @@ app.get("/api/schools", (req, res) => {
 app.post("/api/refresh", async (req, res) => {
   const mevcut = veriyiOku();
   try {
-    const sonuc = await tumKaynaklariYenile(mevcut.okullar);
+    const geminiEtkin = req.body?.geminiEtkin !== false;
+    const sonuc = await tumKaynaklariYenile(mevcut.okullar, { geminiEtkin });
     const guncelVeri = {
       guncellemeZamani: sonuc.guncellemeZamani,
       kaynakNotu: mevcut.kaynakNotu,

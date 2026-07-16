@@ -4,6 +4,13 @@ import CategoryFilter from './components/CategoryFilter'
 import SchoolTable from './components/SchoolTable'
 import StatusBanner from './components/StatusBanner'
 
+const GEMINI_TERCIH_ANAHTARI = 'lgs-puan-takip:gemini-etkin'
+
+function depodanGeminiTercihiOku() {
+  const kayitli = localStorage.getItem(GEMINI_TERCIH_ANAHTARI)
+  return kayitli === null ? false : kayitli === 'true'
+}
+
 export default function App() {
   const [veri, setVeri] = useState(null)
   const [yukleniyor, setYukleniyor] = useState(true)
@@ -11,6 +18,7 @@ export default function App() {
   const [hata, setHata] = useState(null)
   const [arama, setArama] = useState('')
   const [secilenKategori, setSecilenKategori] = useState('Tümü')
+  const [geminiEtkin, setGeminiEtkin] = useState(depodanGeminiTercihiOku)
 
   useEffect(() => {
     okullariGetir()
@@ -19,11 +27,15 @@ export default function App() {
       .finally(() => setYukleniyor(false))
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem(GEMINI_TERCIH_ANAHTARI, String(geminiEtkin))
+  }, [geminiEtkin])
+
   async function handleYenile() {
     setYenileniyor(true)
     setHata(null)
     try {
-      const guncel = await okullariYenile()
+      const guncel = await okullariYenile(geminiEtkin)
       setVeri(guncel)
     } catch (e) {
       setHata(e.message)
@@ -55,9 +67,19 @@ export default function App() {
             LGS puanıyla öğrenci alan özel okulların taban puanı, kontenjanı ve boş kontenjan durumu
           </p>
         </div>
-        <button type="button" className="yenile-buton" onClick={handleYenile} disabled={yenileniyor}>
-          {yenileniyor ? 'Yenileniyor…' : '⟳ Yenile'}
-        </button>
+        <div className="baslik-kontroller">
+          <label className="gemini-anahtar">
+            <input
+              type="checkbox"
+              checked={geminiEtkin}
+              onChange={(e) => setGeminiEtkin(e.target.checked)}
+            />
+            Google AI (Gemini) ile ara
+          </label>
+          <button type="button" className="yenile-buton" onClick={handleYenile} disabled={yenileniyor}>
+            {yenileniyor ? 'Yenileniyor…' : '⟳ Yenile'}
+          </button>
+        </div>
       </header>
 
       {veri?.guncellemeZamani && !yenileniyor && (

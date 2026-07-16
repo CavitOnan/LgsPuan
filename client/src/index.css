@@ -75,6 +75,27 @@ h1 {
   color: var(--text);
 }
 
+.baslik-kontroller {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.gemini-anahtar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--muted-text);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.gemini-anahtar input {
+  cursor: pointer;
+}
+
 .yenile-buton {
   flex-shrink: 0;
   background: var(--accent);
